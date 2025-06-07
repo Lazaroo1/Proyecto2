@@ -19,14 +19,12 @@ def recomendaciones():
         return jsonify({"error": "Token inválido"}), 401
 
     with get_session() as session:
-        # Get user's liked food types
         user_types = session.run("""
             MATCH (u:Usuario {id: $user_id})-[:LE_GUSTA]->(c:Comida)
             RETURN DISTINCT c.tipo AS tipo
         """, user_id=user_id)
         liked_types = [row["tipo"] for row in user_types]
 
-        # Get recommendations based on ingredients and type
         result = session.run("""
             MATCH (u:Usuario {id: $user_id})-[:LE_GUSTA]->(c1:Comida)-[:TIENE]->(i:Ingrediente)<-[:TIENE]-(c2:Comida)
             WHERE NOT (u)-[:LE_GUSTA]->(c2)
@@ -38,14 +36,13 @@ def recomendaciones():
 
         recomendaciones = []
         for row in result:
-            # Base compatibility from shared ingredients (80% weight)
-            ingredient_score = row["shared_ingredients"] * (80 / 15)  # Scale to 0-80 (max 15 ingredients)
-            # Type bonus (20% weight): 20 if type matches, 0 otherwise
+            ingredient_score = row["shared_ingredients"] * (80 / 15)  
             type_bonus = 20 if row["tipo"] in liked_types else 0
-            # Total compatibility
             compatibility = min(100, ingredient_score + type_bonus)
             recomendaciones.append({
                 "nombre": row["nombre"],
+                "tipo": row["tipo"],
+                "ingredientes": row.get("ingredientes", []),
                 "compatibilidad": compatibility,
                 "imagen": row["imagen"]
             })
