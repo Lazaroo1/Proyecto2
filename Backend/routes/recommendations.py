@@ -39,10 +39,16 @@ def recomendaciones():
             ingredient_score = row["shared_ingredients"] * (80 / 15)  
             type_bonus = 20 if row["tipo"] in liked_types else 0
             compatibility = min(100, ingredient_score + type_bonus)
+            ingredientes_result = session.run("""
+                MATCH (c:Comida {nombre: $nombre})-[:TIENE]->(i:Ingrediente)
+                RETURN i.nombre AS nombre
+            """, nombre=row["nombre"])
+            ingredientes = [ing["nombre"] for ing in ingredientes_result]
+
             recomendaciones.append({
                 "nombre": row["nombre"],
                 "tipo": row["tipo"],
-                "ingredientes": row.get("ingredientes", []),
+                "ingredientes": ingredientes,
                 "compatibilidad": compatibility,
                 "imagen": row["imagen"]
             })
