@@ -38,7 +38,6 @@
     <ul id="recomendaciones" class="recommendations-grid"></ul>
   </div>
 
-  <!-- Modal personalizado -->
   <div id="ingredientesModal" class="custom-modal hidden">
     <div class="custom-modal-content">
       <div class="custom-modal-header">
@@ -54,7 +53,6 @@
   <script src="js/auth.js"></script>
   <script src="js/api.js"></script>
   <script>
-    // Modal logic
     const modal = document.getElementById('ingredientesModal');
     const closeBtn = document.getElementById('closeModalBtn');
 
@@ -78,6 +76,13 @@
         modal.classList.add('hidden');
       }
     };
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('ver-ingredientes-btn')) {
+        const ingredientes = JSON.parse(e.target.getAttribute('data-ingredientes'));
+        mostrarIngredientes(ingredientes);
+      }
+    });
   </script>
 </body>
 </html>
