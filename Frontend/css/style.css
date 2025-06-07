@@ -26,6 +26,7 @@ body::before {
   pointer-events: none;
 }
 
+/* Dashboard Body Styles */
 .dashboard-body {
   display: block;
   align-items: stretch;
@@ -192,7 +193,7 @@ body::before {
   font-size: 1.1rem;
 }
 
-#comidasContainer {
+#comidasContainer, #ingredientesContainer {
   background: rgba(246, 248, 250, 0.8);
   border-radius: 16px;
   padding: 1.5rem;
@@ -200,7 +201,7 @@ body::before {
   backdrop-filter: blur(10px);
 }
 
-#comidasContainer label {
+#comidasContainer label, #ingredientesContainer label {
   display: flex;
   align-items: center;
   padding: 0.75rem;
@@ -215,7 +216,7 @@ body::before {
   font-weight: 500;
 }
 
-#comidasContainer label::before {
+#comidasContainer label::before, #ingredientesContainer label::before {
   content: '';
   position: absolute;
   top: 0;
@@ -226,17 +227,17 @@ body::before {
   transition: left 0.5s ease;
 }
 
-#comidasContainer label:hover::before {
+#comidasContainer label:hover::before, #ingredientesContainer label:hover::before {
   left: 100%;
 }
 
-#comidasContainer label:hover {
+#comidasContainer label:hover, #ingredientesContainer label:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
   border-color: rgba(102, 126, 234, 0.2);
 }
 
-#comidasContainer input[type="checkbox"] {
+#comidasContainer input[type="checkbox"], #ingredientesContainer input[type="checkbox"] {
   width: 20px;
   height: 20px;
   margin-right: 12px;
@@ -518,6 +519,120 @@ body::before {
   margin-bottom: 0;
 }
 
+.like-btn, .dislike-btn, .ver-ingredientes-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 0.5rem;
+}
+
+.like-btn {
+  background: linear-gradient(135deg, #28a745, #218838);
+}
+
+.dislike-btn {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+}
+
+.ver-ingredientes-btn {
+  background: linear-gradient(135deg, #17a2b8, #117a8b);
+}
+
+.like-btn:hover, .dislike-btn:hover, .ver-ingredientes-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.like-btn:disabled, .dislike-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  max-width: 500px;
+  width: 90%;
+  padding: 1.5rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-header h5 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+.modal-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-body li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.modal-footer {
+  text-align: right;
+  margin-top: 1rem;
+}
+
+.modal-footer button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.modal-footer button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
 .loading {
   display: inline-block;
   width: 20px;
@@ -605,56 +720,11 @@ body::before {
   }
 
   .btn {
-    padding: 0.70rem;
+    padding: 0.75rem;
     font-size: 1rem;
   }
 
-  #comidasContainer {
+  #comidasContainer, #ingredientesContainer {
     padding: 1rem;
   }
-
-  .custom-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.custom-modal.hidden {
-  display: none;
-}
-
-.custom-modal-content {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-.custom-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 1rem;
-}
-
-.custom-close-btn {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.custom-modal-body ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-}
-
 }
