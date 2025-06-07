@@ -12,10 +12,12 @@ async function getRecomendaciones() {
       'Authorization': `Bearer ${token}`
     }
   });
+
   if (res.ok) {
     const recomendaciones = await res.json();
     const ul = document.getElementById("recomendaciones");
     ul.innerHTML = "";
+
     recomendaciones.forEach(rec => {
       const li = document.createElement("li");
       li.className = "recommendation-card";
@@ -30,7 +32,7 @@ async function getRecomendaciones() {
           <button class="dislike-btn" data-comida="${rec.nombre}">
             <i class="fa-solid fa-thumbs-down"></i> Dislike
           </button>
-          <button class="ver-ingredientes-btn" data-comida="${rec.nombre}">
+          <button class="ver-ingredientes-btn" data-comida="${rec.nombre}" data-ingredientes='${JSON.stringify(rec.ingredientes)}'>
             <i class="fa-solid fa-carrot"></i> Ver Ingredientes
           </button>
         </div>
@@ -60,20 +62,21 @@ async function getRecomendaciones() {
 
     document.querySelectorAll('.ver-ingredientes-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const comida = btn.dataset.comida;
-        const rec = recomendaciones.find(r => r.nombre === comida);
+        const ingredientes = JSON.parse(btn.dataset.ingredientes);
+        const nombreComida = btn.dataset.comida;
         const modal = document.getElementById('ingredientesModal');
-        const ingredientesList = document.getElementById('ingredientesList');
+        const lista = document.getElementById('ingredientesList');
+        const titulo = document.getElementById('modalTitle');
 
-        ingredientesList.innerHTML = rec.ingredientes.map(ing => `<li>${ing}</li>`).join('');
-       modal.classList.remove('hidden');
+        lista.innerHTML = '';
+        ingredientes.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          lista.appendChild(li);
+        });
 
-      });
-    });
-
-    document.querySelectorAll('.modal-close').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.getElementById('ingredientsModal').setAttribute('aria-hidden', 'true');
+        titulo.textContent = `Ingredientes de ${nombreComida}`;
+        modal.classList.remove('hidden');
       });
     });
 
@@ -93,6 +96,7 @@ async function sendPreference(comida, preference) {
     },
     body: JSON.stringify({ comida, preference })
   });
+
   if (!res.ok) {
     console.error(`Error sending ${preference}:`, await res.text());
     alert(`Error al enviar ${preference}`);
