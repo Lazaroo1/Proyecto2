@@ -1,0 +1,4 @@
+Flask==3.0.3
+Flask-CORS==5.0.0
+py2neo==2021.2.3
+pyjwt==2.9.0

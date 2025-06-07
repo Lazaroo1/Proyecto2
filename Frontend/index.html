@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodMatch - Iniciar Sesión</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="floating-shapes">
+    <div class="shape"><i class="fas fa-utensils"></i></div>
+    <div class="shape"><i class="fas fa-pizza-slice"></i></div>
+    <div class="shape"><i class="fas fa-hamburger"></i></div>
+    <div class="shape"><i class="fas fa-ice-cream"></i></div>
+  </div>
+
+  <div class="container">
+    <div class="logo">
+      <h1><i class="fas fa-utensils"></i> FoodMatch</h1>
+      <p>Descubre tu próxima comida favorita</p>
+    </div>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" placeholder="Tu email" required id="loginEmail">
+      </div>
+      
+      <div class="form-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="Tu contraseña" required id="loginPassword">
+      </div>
+      
+      <button type="submit" class="btn">
+        <span class="btn-text">Iniciar Sesión</span>
+      </button>
+    </form>
+    
+    <div class="link-container">
+      <p>¿No tienes cuenta?</p>
+      <a href="register.html">Regístrate aquí</a>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

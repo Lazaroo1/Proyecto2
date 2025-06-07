@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodMatch - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+  <div class="floating-shapes">
+    <div class="shape"><i class="fas fa-utensils"></i></div>
+    <div class="shape"><i class="fas fa-pizza-slice"></i></div>
+    <div class="shape"><i class="fas fa-hamburger"></i></div>
+    <div class="shape"><i class="fas fa-ice-cream"></i></div>
+  </div>
+
+  <div class="dashboard-container">
+    <nav class="navbar-custom">
+      <div class="navbar-content">
+        <div class="navbar-brand">
+          <i class="fas fa-utensils"></i> FoodMatch
+        </div>
+        <div class="navbar-actions">
+          <span class="welcome-text">Bienvenido, <span id="username"></span></span>
+          <button id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="recommendations-header">
+      <h2><i class="fas fa-magic"></i> Tus Recomendaciones</h2>
+      <p>Descubre platos perfectos para ti</p>
+    </div>
+    
+    <ul id="recomendaciones" class="recommendations-grid"></ul>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+</body>
+</html>
