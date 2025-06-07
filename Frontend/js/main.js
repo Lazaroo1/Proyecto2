@@ -40,7 +40,10 @@ window.addEventListener("DOMContentLoaded", () => {
     comidasPredefinidas.forEach(comida => {
       const label = document.createElement("label");
       label.className = "form-check form-check-inline";
-      label.innerHTML = `<input class="form-check-input" type="checkbox" value="${comida}" aria-label="Seleccionar ${comida}"> ${comida}`;
+      label.innerHTML = `
+        <input class="form-check-input" type="checkbox" value="${comida}" aria-label="Seleccionar ${comida}">
+        <span>${comida}</span>
+      `;
       comidasContainer.appendChild(label);
     });
   }
@@ -51,7 +54,10 @@ window.addEventListener("DOMContentLoaded", () => {
     ingredientesPredefinidos.forEach(ingrediente => {
       const label = document.createElement("label");
       label.className = "form-check form-check-inline";
-      label.innerHTML = `<input class="form-check-input" type="checkbox" value="${ingrediente}" aria-label="Evitar ${ingrediente}"> ${ingrediente}`;
+      label.innerHTML = `
+        <input class="form-check-input" type="checkbox" value="${ingrediente}" aria-label="Evitar ${ingrediente}">
+        <span>${ingrediente}</span>
+      `;
       ingredientesContainer.appendChild(label);
     });
   }
