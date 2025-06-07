@@ -44,22 +44,22 @@ async function getRecomendaciones() {
       ul.appendChild(li);
     });
 
-    document.querySelectorAll('.like-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const comida = btn.dataset.comida;
-        await sendPreference(comida, 'like');
-        btn.disabled = true;
-        btn.nextElementSibling.disabled = false;
-      });
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const comida = btn.dataset.comida;
+      await sendPreference(comida, 'like');
+      await getRecomendaciones(); 
     });
-    document.querySelectorAll('.dislike-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const comida = btn.dataset.comida;
-        await sendPreference(comida, 'dislike');
-        btn.disabled = true;
-        btn.previousElementSibling.disabled = false;
-      });
+  });
+
+  document.querySelectorAll('.dislike-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const comida = btn.dataset.comida;
+      await sendPreference(comida, 'dislike');
+      await getRecomendaciones(); 
     });
+  });
+
   } else {
     console.error("Error fetching recommendations:", await res.text());
     alert("Error al cargar recomendaciones");

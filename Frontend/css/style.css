@@ -333,7 +333,6 @@ body::before {
   transform: translateY(-1px);
 }
 
-/* Dashboard Styles */
 .dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -520,7 +519,6 @@ body::before {
   margin-bottom: 0;
 }
 
-/* Loading Animation */
 .loading {
   display: inline-block;
   width: 20px;
@@ -535,7 +533,6 @@ body::before {
   to { transform: rotate(360deg); }
 }
 
-/* Success Animation */
 @keyframes success {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -546,7 +543,6 @@ body::before {
   animation: success 0.3s ease-in-out;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .container {
     margin: 1rem;
