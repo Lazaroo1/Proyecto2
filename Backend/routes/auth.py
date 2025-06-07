@@ -4,7 +4,7 @@ import jwt
 from database import get_session
 
 auth_bp = Blueprint("auth", __name__)
-SECRET_KEY = "your-secret-key"  
+SECRET_KEY = "your-secret-key"
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
@@ -13,7 +13,8 @@ def register():
     nombre = data['nombre']
     email = data['email']
     password = data['password']
-    comidas = data['comidas']
+    comidas = data.get('comidas', [])
+    ingredientesEvitados = data.get('ingredientesEvitados', [])
 
     with get_session() as session:
         session.run("""
@@ -25,6 +26,12 @@ def register():
                 MATCH (u:Usuario {id: $id}), (c:Comida {nombre: $comida})
                 MERGE (u)-[:LE_GUSTA]->(c)
             """, id=user_id, comida=comida)
+
+        for ingrediente in ingredientesEvitados:
+            session.run("""
+                MATCH (u:Usuario {id: $id}), (i:Ingrediente {nombre: $ingrediente})
+                MERGE (u)-[:EVITA]->(i)
+            """, id=user_id, ingrediente=ingrediente)
 
     return jsonify({"message": "Usuario registrado con éxito"}), 200
 

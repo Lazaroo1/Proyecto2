@@ -6,14 +6,19 @@ if (registerForm) {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const comidas = Array.from(document.querySelectorAll("#comidasContainer input:checked")).map(e => e.value);
+    const ingredientesEvitados = Array.from(document.querySelectorAll("#ingredientesContainer input:checked")).map(e => e.value);
 
     const res = await fetch("http://localhost:5000/register", {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, email, password, comidas })
+      body: JSON.stringify({ nombre, email, password, comidas, ingredientesEvitados })
     });
-    if (res.ok) window.location.href = "index.html";
-    else alert("Error al registrar usuario");
+    if (res.ok) {
+      window.location.href = "index.html";
+    } else {
+      const error = await res.json();
+      alert(error.message || "Error al registrar usuario");
+    }
   });
 }
 
